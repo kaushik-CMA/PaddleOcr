@@ -29,8 +29,7 @@ def run_ocr(ocr, image_path):
     # Run PaddleOCR on an image.
 
     result = ocr.predict(str(image_path))
-
-    return result
+    return extract_results(result)
 
 def extract_results(result):
     
@@ -47,7 +46,7 @@ def extract_results(result):
     ):
         records.append(
             OCRRecord(text=text,
-                      confidence=score,
+                      confidence=float(score),
                       box=box.tolist())
         )
 

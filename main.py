@@ -1,14 +1,14 @@
 from core.engine import create_engine
-from core.inference import extract_results
-from core.exporter import export_txt
+from core.inference import run_ocr
+from core.exporter import (export_txt,export_csv)
+from config.settings import (INPUT_IMAGE, OUTPUT_TXT, OUTPUT_CSV)
 
 ocr = create_engine()
 
-result = ocr.predict("input/morning quote2.jpg")
+records = run_ocr(ocr, INPUT_IMAGE)
 
-records = extract_results(result)
+export_txt(records, OUTPUT_TXT)
 
-for record in records:
-    print(record)
+export_csv(records,OUTPUT_CSV)
 
-export_txt(records, "output/result.txt")
+print("Done")

@@ -1,7 +1,5 @@
-# config/settings.py
+INPUT_IMAGE = "input/morning quote2.jpg"
 
-INPUT_FOLDER = "input"
-OUTPUT_FOLDER = "output"
+OUTPUT_TXT = "output/result.txt"
 
-EXPORT_TXT = True
-EXPORT_CSV = True
+OUTPUT_CSV = "output/result.csv"
