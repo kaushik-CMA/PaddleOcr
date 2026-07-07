@@ -1,5 +1,3 @@
-# core/engine.py
-
 from paddleocr import PaddleOCR
 
 

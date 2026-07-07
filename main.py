@@ -1,11 +1,14 @@
 from core.engine import create_engine
 from core.inference import extract_results
+from core.exporter import export_txt
 
 ocr = create_engine()
 
 result = ocr.predict("input/morning quote2.jpg")
 
-data = extract_results(result)
+records = extract_results(result)
 
-for item in data:
-    print(item)
+for record in records:
+    print(record)
+
+export_txt(records, "output/result.txt")

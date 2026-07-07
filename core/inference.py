@@ -1,10 +1,10 @@
 from pathlib import Path
+from core.models import OCRRecord
 
 
 def get_first_image(input_folder):
-    """
-    Return the first supported image found in the input folder.
-    """
+    
+    # Return the first supported image found in the input folder.
 
     supported_extensions = {
         ".jpg",
@@ -26,34 +26,29 @@ def get_first_image(input_folder):
 
 
 def run_ocr(ocr, image_path):
-    """
-    Run PaddleOCR on an image.
-    """
+    # Run PaddleOCR on an image.
 
     result = ocr.predict(str(image_path))
 
     return result
 
 def extract_results(result):
-    """
-    Convert PaddleOCR output into a simple Python list.
-    """
+    
+    # Convert PaddleOCR output into a simple Python list.
 
     page = result[0]
 
-    extracted = []
+    records = []
 
     for text, score, box in zip(
         page["rec_texts"],
         page["rec_scores"],
         page["rec_boxes"]
     ):
-        extracted.append(
-            {
-                "text": text,
-                "confidence": float(score),
-                "box": box.tolist()
-            }
+        records.append(
+            OCRRecord(text=text,
+                      confidence=score,
+                      box=box.tolist())
         )
 
-    return extracted
+    return records
