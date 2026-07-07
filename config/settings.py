@@ -1,5 +1,7 @@
-INPUT_IMAGE = "input/morning quote2.jpg"
+INPUT_FOLDER = "input"
 
-OUTPUT_TXT = "output/result.txt"
+OUTPUT_FOLDER = "output"
 
-OUTPUT_CSV = "output/result.csv"
+EXPORT_TXT = True
+
+EXPORT_CSV = True
