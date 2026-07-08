@@ -8,3 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Input files
+input/*
+!input/.gitkeep
+
+# Output files
+output/*
+!output/.gitkeep
