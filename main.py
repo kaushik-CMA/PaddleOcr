@@ -2,41 +2,38 @@ from pathlib import Path
 
 from config.settings import (
     INPUT_FOLDER,
-    OUTPUT_FOLDER
+    OUTPUT_FOLDER,
 )
 
 from core.engine import create_engine
-from core.inference import run_ocr
-from core.exporter import export_txt
-from core.exporter import export_csv
 from core.file_utils import get_images
+from core.ocr_service import paddleOCRService
 
 
-ocr = create_engine()
+engine = create_engine()
+
+service = paddleOCRService(engine)
 
 images = get_images(INPUT_FOLDER)
 
 for image in images:
 
-    records = run_ocr(
-        ocr,
-        image
-    )
-
-    txt_file = (
+    txt_output = (
         Path(OUTPUT_FOLDER)
         / f"{image.stem}.txt"
     )
 
-    csv_file = (
+    csv_output = (
         Path(OUTPUT_FOLDER)
         / f"{image.stem}.csv"
     )
 
-    export_txt(records, txt_file)
+    service.process_image(
+        image,
+        txt_output,
+        csv_output,
+    )
 
-    export_csv(records, csv_file)
-
-    print(f"Processed: {image.name}")
+    print(f"Processed {image.name}")
 
 print("Done")
