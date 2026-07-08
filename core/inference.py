@@ -1,5 +1,6 @@
 from pathlib import Path
 from core.models import OCRRecord
+from config.settings import *
 
 
 def get_first_image(input_folder):
@@ -44,10 +45,11 @@ def extract_results(result):
         page["rec_scores"],
         page["rec_boxes"]
     ):
-        records.append(
-            OCRRecord(text=text,
-                      confidence=float(score),
-                      box=box.tolist())
-        )
+        if score>= MIN_CONFIDENCE:
+            records.append(
+                OCRRecord(text=text,
+                        confidence=float(score),
+                        box=box.tolist())
+            )
 
     return records
